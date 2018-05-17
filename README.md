@@ -19,7 +19,7 @@ Cart:
 
 Address:
 -----
-![Shopping Cart](https://raw.github.com/wenyiw/ShoppingCart/not-using-components/shoppingCart/img/address.jpg)
+![Address](https://raw.github.com/wenyiw/ShoppingCart/not-using-components/shoppingCart/img/address.jpg)
 
 * Appearance
     * By default only show 3 addresses
