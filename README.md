@@ -5,7 +5,7 @@ Although written with vue, the current version, as the branch name implied, did 
 
 Cart:
 -----
-![Shopping Cart](https://raw.github.com/wenyiw/ShoppingCart/not-using-components/shoppingCart/img/cart.jpg)
+![Shopping Cart](https://github.com/wenyiw/ShoppingCart/blob/not-using-components/img/cart.png)
 
 * Changing Quantity
     * Total price of THAT item will change accordingly
@@ -19,7 +19,7 @@ Cart:
 
 Address:
 -----
-![Address](https://raw.github.com/wenyiw/ShoppingCart/not-using-components/shoppingCart/img/address.jpg)
+![Address](https://github.com/wenyiw/ShoppingCart/blob/not-using-components/img/address.png)
 
 * Appearance
     * By default only show 3 addresses
