@@ -1,0 +1,104 @@
+1. XMLHttpRequest cannot load error : json cross-origin problems
+        Not a problem if open in IDE (webstorm)
+
+2. <input type="text" value="0" disabled v-modal="product.productQuantity">
+   ...
+   <div class="item-price-total">{{product.productPrice * product.productQuantity}}</div>
+   v-modal binds product.productQuantity from input and div (2 way data binding)
+   so the total price will change according to product.productQuantity
+
+3. <img src="{{product.productImage}}" alt="烟"> does not work
+   Because the browser will analyze {{product.productImage}} as a string as the path for src
+   <img :src="product.productImage" alt="烟"> works
+   Because by using v-bind img label does't actually have the scr attribute at first
+   only after vue instance is initialized v-bind adds the scr attribute to img
+   after adding, the picture is already rendered
+
+4. After we changed the data (local json files) or css files we have to clear browser cache
+   for the browser to use the new data
+
+5. this.$http.get("data/cartData.json").then(function(res){
+   	  			this.products=res.data.result.list;
+   	  			this.totalMoney=res.data.result.totalMoney;
+     			})
+   This is the way vue gets the data, which is different from jQuery:
+   this.$http.get("data/cartData.json", {"id":123}, func) where func is the callback method
+   jQuery is quite large so we can consider using vue to replace it
+
+6. var vm = new Vue() we actually don't need vm (we can directly use this)
+   so new Vue() is enough
+   If we really want to use vm remember in mounted function nextTick is required:
+   mounted: function() {
+   		this.$nextTick(function() {
+   			vm.cartView(); //here: to use vm.cartView we must use it inside nextTick
+   		})
+   },
+   In ES6
+   this.$http.get("data/cartData.json").then(function(res){
+          	  			this.products=res.data.result.list;
+          	  			this.totalMoney=res.data.result.totalMoney;
+            			})
+   can be
+   this.$http.get("data/cartData.json").then(res=>{
+                        this.products=res.data.result.list;
+                        this.totalMoney=res.data.result.totalMoney;
+   })
+
+7. We can add {"id":123} to this.$http.get() to provide an id:
+   this.$http.get("data/cartData.json", {"id":123}).then(function(res)
+
+8. If we use global filter we have to put filter before new Vue():
+        Vue.filter('formatMoney', (value)=>{
+            return "$" + value.toFixed(2);
+        });
+        new Vue()
+
+   To use: {{product.productPrice | formatMoney()}}
+   If we wanna use pass in more than one argument:
+   {{product.productPrice | formatMoney(argument1, argument2, etc.)}}
+   Then:
+   Vue.filter('formatMoney', (value, argument1, argument2, etc.)=>{
+       return "$" + value.toFixed(2);
+   });
+   new Vue()
+
+9. In vue we modify model (data) and vue will modify DOM accordingly;
+   this way we separate js from DOM
+
+10. Two ways of having multiple classes:
+    a. class="[{check: product.checked}, 'item-check-btn']" -> has weird effect in this project
+    b. class = "item-check-btn" :class="{check: product.checked}"
+    sometime we need to do this: :class="{'md-overlay': flag}" (note the quotation marks)
+    maybe because there is '-' inside the class name
+
+11. If the variable we want to use is not in the data originally (like product.checked here)
+    use vm.$set()
+
+12. If we use .then():
+        cartView:function() {
+            this.$http.get("data/cartData.json").then(function(res){
+                this.products=res.data.result.list;
+                this.totalMoney=res.data.result.totalMoney;
+            })
+        }
+        we can see that all 3 this still refer to the same vue instance which is the current one
+    However, if we use forEach (maybe some other functions too):
+        var _this = this; //important
+        this.products.forEach(function (product, index) {
+            if (typeof product.checked === 'undefined')
+                _this.$set(product, 'checked', _this.allChecked);
+            else product.checked = _this.allChecked;
+        })
+        we have to use "var _this = this;" because this in forEach function is no longer
+        the same this (which refers to the current vue instance)
+        This is probably because in forEach(function(product, index)),
+        function(product, index) is already another scope
+
+13. v-if is to control if the whole element should be shown or not
+    :class = {someClass: someBool} is to control this specific class
+
+14. If we don't want {{}} to show before the web page is fully loaded (which means before the actually info is shown),
+    we can use v-text
+    To use filters in v-text: v-text="$options.filters.filterName(parameters)"
+
+15. list.slice will not change the original list but list.splice will
