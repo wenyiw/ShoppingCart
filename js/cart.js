@@ -93,6 +93,15 @@ new Vue({
                 this.total -= current.productPrice * current.productQuantity;
             this.products.splice(this.delIndex, 1);
 			this.del = false; //to close the pop up window
-        }
+        },
+		/*
+        checkIfSelect: function () {
+			if (this.numChecked !== 0) {
+                router.go({
+                    path:'address.html',
+                    activeClass:'active'
+                });
+			}
+        }*/
 	}
 });
