@@ -5,6 +5,8 @@ Although written with vue, the current version, as the branch name implied, did 
 
 Cart:
 -----
+![Shopping Cart](https://raw.github.com/wenyiw/ShoppingCart/not-using-components/shoppingCart/img/cart.jpg)
+
 * Changing Quantity
     * Total price of THAT item will change accordingly
     * If the item is checked, total price will change accordingly
@@ -17,6 +19,8 @@ Cart:
 
 Address:
 -----
+![Shopping Cart](https://raw.github.com/wenyiw/ShoppingCart/not-using-components/shoppingCart/img/address.jpg)
+
 * Appearance
     * By default only show 3 addresses
     * By clicking the more button we can toggle between showing 3 and showing all addresses
